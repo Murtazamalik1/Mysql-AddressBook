@@ -18,7 +18,7 @@ public class AddressBookMain {
             boolean exit = false;
             while (!exit) {
                 System.out.println("What do you Want To Perform");
-                System.out.println("1 Create Table 2 InsertInto Table 3 Update Table 4 Delete Table 5 Exit 6 Choose AddressBook 7 printCsvData");
+                System.out.println("1 Create Table 2 InsertInto Table 3 Update Table ");
                 int option = scanner.nextInt();
                 switch (option) {
                     case 1:
@@ -26,6 +26,9 @@ public class AddressBookMain {
                         break;
                     case 2:
                         call.insertTable(connection);
+                        break;
+                    case 3:
+                        call.updateTable(connection);
                         break;
                 }
             }

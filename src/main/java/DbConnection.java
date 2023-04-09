@@ -50,4 +50,40 @@ public class DbConnection {
             throw new RuntimeException(e);
         }
     }
+    public void updateTable(Connection connection) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter Name That You Want To Edit ");
+        String name = scanner.next();
+        System.out.println("Enter the Name of Book ");
+        String bookName = scanner.next();
+        String query = String.format("update Person set firstName=? , lastName=?,address=?,city=?,state=?,phoneNumber=?,zip=? where firstName = '%s' and BookType = '%s'", name,bookName);
+        System.out.println("Enter New firstName");
+        String firstName = scanner.next();
+        System.out.println("Enter New lastName");
+        String lastName = scanner.next();
+        System.out.println("Enter New Address");
+        String address = scanner.next();
+        System.out.println("Enter New City");
+        String city = scanner.next();
+        System.out.println("Enter New State");
+        String state = scanner.next();
+        System.out.println("Enter New Phone Number");
+        String phoneNumber = scanner.next();
+        System.out.println("Enter New Zip Code");
+        String zip = scanner.next();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, firstName);
+            preparedStatement.setString(2, lastName);
+            preparedStatement.setString(3, address);
+            preparedStatement.setString(4, city);
+            preparedStatement.setString(5, state);
+            preparedStatement.setInt(6, Integer.parseInt(phoneNumber));
+            preparedStatement.setInt(7, Integer.parseInt(zip));
+            preparedStatement.executeUpdate();
+            System.out.println("Updated");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
