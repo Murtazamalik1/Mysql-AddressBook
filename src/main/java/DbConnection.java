@@ -1,3 +1,5 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.sql.*;
 import java.util.Scanner;
 
@@ -124,4 +126,46 @@ public class DbConnection {
             throw new RuntimeException(e);
         }
     }
+    public void printCSVData(Connection connection){
+        try {
+
+            String filePath = "C:\\Users\\MAHAVEER TECH\\Desktop\\AddressBook.CSV";
+
+            String query = "insert into  Person(firstName,lastName,address,city,state,phoneNumber,zip,BookType) VALUES (?,?,?,?,?,?,?,?)";
+
+            PreparedStatement statement = connection.prepareStatement(query);
+            BufferedReader lineReader = new BufferedReader(new FileReader(filePath));
+
+            String lineText = null;
+            lineReader.readLine();
+            while ((lineText = lineReader.readLine()) != null) {
+                String[] data = lineText.split(",");
+                String firstName = data[1];
+                String lastName = data[2];
+                String address = data[3];
+                String city = data[4];
+                String state = data[5];
+                String phoneNo = data[6];
+                String zip = data[7];
+                String bookType = data[8];
+
+                statement.setString(1,firstName );
+                statement.setString(2, lastName);
+                statement.setString(3, address);
+                statement.setString(4, city);
+                statement.setString(5, state);
+                statement.setInt(6, Integer.parseInt(phoneNo));
+                statement.setInt(7, Integer.parseInt(zip));
+                statement.setString(8, bookType);
+
+                statement.executeUpdate();
+            }
+            lineReader.close();
+             connection.close();
+            System.out.println("data inserted");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
