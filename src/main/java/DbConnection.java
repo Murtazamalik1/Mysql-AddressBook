@@ -86,4 +86,22 @@ public class DbConnection {
             throw new RuntimeException(e);
         }
     }
+    public void deleteFromTable(Connection connection) {
+
+        String query = "delete from Person where firstName = ? and BookType=? ";
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter The FirstName Of Person That You Want To Delete ");
+        String name = scanner.next();
+        System.out.println("Enter BookType Name ");
+        String bookType = scanner.next();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1,name);
+            preparedStatement.setString(2,bookType);
+            preparedStatement.executeUpdate();
+            System.out.println("Deleted Successfully");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
