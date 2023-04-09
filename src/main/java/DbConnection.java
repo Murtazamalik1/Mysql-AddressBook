@@ -1,7 +1,4 @@
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Scanner;
 
 public class DbConnection {
@@ -101,6 +98,29 @@ public class DbConnection {
             preparedStatement.executeUpdate();
             System.out.println("Deleted Successfully");
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void chooseAddressBook(Connection connection){
+        String query = "select * from Person where bookType=?";
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter TypeBook Name");
+        String bookType = scanner.next();
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()){
+                System.out.println(resultSet.getString(1));
+                System.out.println(resultSet.getString(2));
+                System.out.println(resultSet.getString(3));
+                System.out.println(resultSet.getString(4));
+                System.out.println(resultSet.getString(5));
+                System.out.println(resultSet.getInt(6));
+                System.out.println(resultSet.getInt(7));
+                System.out.println(resultSet.getString(8));
+            }
+            System.out.println("Printed");
+        }catch (Exception e){
             throw new RuntimeException(e);
         }
     }
