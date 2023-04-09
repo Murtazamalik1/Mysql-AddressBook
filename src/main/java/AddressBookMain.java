@@ -1,5 +1,6 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.Scanner;
 
 public class AddressBookMain {
     public static void main(String[] args) {
@@ -12,6 +13,22 @@ public class AddressBookMain {
             Class.forName(driver);
             System.out.println("driver is loaded");
             Connection connection = DriverManager.getConnection(dataBaseURL, userName, password);
+            Scanner scanner = new Scanner(System.in);
+            DbConnection call = new DbConnection();
+            boolean exit = false;
+            while (!exit) {
+                System.out.println("What do you Want To Perform");
+                System.out.println("1 Create Table 2 InsertInto Table 3 Update Table 4 Delete Table 5 Exit 6 Choose AddressBook 7 printCsvData");
+                int option = scanner.nextInt();
+                switch (option) {
+                    case 1:
+                        call.createTable(connection);
+                        break;
+                    case 2:
+                        call.insertTable(connection);
+                        break;
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
